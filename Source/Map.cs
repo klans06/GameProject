@@ -27,10 +27,8 @@ public class Map
             for (int y = 0; y < Columns; y++)
             {
                 ETileType currentTile = _tiles[x, y];
-                int maxRows = _tiles.GetLength(0);
-                int maxColumns = _tiles.GetLength(1);
 
-                if (x == 0 || x == maxRows - 1 || y == 0 || y == maxColumns - 1)
+                if (x == 0 || x == Rows - 1 || y == 0 || y == Columns - 1)
                 {
                     _tiles[x, y] = ETileType.StoneWallBorder;
                 }
