@@ -4,17 +4,17 @@ namespace GameProject.Source;
 
 internal static class Program
 {
-    const int Columns = 20;
-    const int Rows = 20;
-    const int TileSize = 32;
+    const int Columns = 45;
+    const int Rows = 68;
+    const int TileSize = 16;
     private const int TargetFps = 60;
     
     public static void Main()
     {
         AssetManager assetManager = new AssetManager();
-        Map gameMap = new Map(Columns, Rows, TileSize);
+        Map gameMap = new Map(Columns, Rows, assetManager, TileSize);
         
-        Raylib.InitWindow(1080, 720, "Hello, World");
+        Raylib.InitWindow(1080, 720, "GameProject");
         Raylib.SetTargetFPS(TargetFps);
         assetManager.LoadContent();
 

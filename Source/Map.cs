@@ -9,12 +9,14 @@ public class Map
     private int TileSize { get; }
     private int Columns { get; }
     private int Rows { get; }
+    private AssetManager TileManager { get; }
 
-    public Map(int columns, int rows, int tileSize = 32)
+    public Map(int columns, int rows, AssetManager assetManager, int tileSize = 32)
     {
         Columns = columns;
         Rows = rows;
         TileSize = tileSize;
+        TileManager = assetManager;
         _tiles = new ETileType[rows, columns];
         
         InitializeMap();
@@ -42,16 +44,15 @@ public class Map
 
     public void DrawTile()
     {
-        AssetManager assetManager = new AssetManager();
         for (int x = 0; x < Rows; x++)
         {
             for (int y = 0; y < Columns; y++)
             {
                 Texture2D tileTexture = _tiles[x, y] switch
                 {
-                    ETileType.Grass => assetManager.GetTexture(ETileType.Grass),
-                    ETileType.StoneWallBorder => assetManager.GetTexture(ETileType.StoneWallBorder),
-                    _ => assetManager.GetTexture(ETileType.StoneWallBorder) // Fallback color
+                    ETileType.Grass => TileManager.GetTexture(ETileType.Grass),
+                    ETileType.StoneWallBorder => TileManager.GetTexture(ETileType.StoneWallBorder),
+                    _ => TileManager.GetTexture(ETileType.StoneWallBorder) // Fallback color
                 };
                 
                 int pixelX = x * TileSize;
