@@ -62,6 +62,7 @@ public class Map
                 int pixelY = y * TileSize;
                 
                 Raylib.DrawRectangle(pixelX, pixelY, TileSize, TileSize, tileColor);
+                Raylib.DrawRectangleLines(pixelX, pixelY, TileSize, TileSize, Color.Black);
             }
         }
     }
