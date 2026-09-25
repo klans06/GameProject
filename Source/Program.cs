@@ -2,7 +2,7 @@
 
 namespace GameProject.Source;
 
-internal class Program
+internal static class Program
 {
     const int Columns = 20;
     const int Rows = 20;
@@ -11,7 +11,7 @@ internal class Program
     
     public static void Main()
     {
-        Map GameMap = new Map(Columns, Rows, TileSize);
+        Map gameMap = new Map(Columns, Rows, TileSize);
         Raylib.InitWindow(1080, 720, "Hello, World");
         Raylib.SetTargetFPS(TargetFps);
 
@@ -20,7 +20,7 @@ internal class Program
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.White);
 
-            GameMap.DrawTile();
+            gameMap.DrawTile();
             
             Raylib.EndDrawing();
         }

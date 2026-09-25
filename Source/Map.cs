@@ -6,9 +6,9 @@ namespace GameProject.Source;
 public class Map
 {
     private readonly ETileType[,] _tiles;
-    public int TileSize { get; }
-    public int Columns { get; }
-    public int Rows { get; }
+    private int TileSize { get; }
+    private int Columns { get; }
+    private int Rows { get; }
 
     public Map(int columns, int rows, int tileSize = 32)
     {
@@ -29,9 +29,6 @@ public class Map
                 ETileType currentTile = _tiles[x, y];
                 int maxRows = _tiles.GetLength(0);
                 int maxColumns = _tiles.GetLength(1);
-                
-                int pixelX = x * TileSize;
-                int pixelY = y * TileSize;
 
                 if (x == 0 || x == maxRows - 1 || y == 0 || y == maxColumns - 1)
                 {
