@@ -11,9 +11,12 @@ internal static class Program
     
     public static void Main()
     {
+        AssetManager assetManager = new AssetManager();
         Map gameMap = new Map(Columns, Rows, TileSize);
+        
         Raylib.InitWindow(1080, 720, "Hello, World");
         Raylib.SetTargetFPS(TargetFps);
+        assetManager.LoadContent();
 
         while (!Raylib.WindowShouldClose())
         {
@@ -26,6 +29,7 @@ internal static class Program
         }
         
         Raylib.CloseWindow();
+        assetManager.UnloadContent();
     }
 }
 

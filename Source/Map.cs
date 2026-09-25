@@ -42,21 +42,22 @@ public class Map
 
     public void DrawTile()
     {
+        AssetManager assetManager = new AssetManager();
         for (int x = 0; x < Rows; x++)
         {
             for (int y = 0; y < Columns; y++)
             {
-                Color tileColor = _tiles[x, y] switch
+                Texture2D tileTexture = _tiles[x, y] switch
                 {
-                    ETileType.Grass => Color.Green,
-                    ETileType.StoneWallBorder => Color.DarkGray,
-                    _ => Color.DarkGreen // Fallback color
+                    ETileType.Grass => assetManager.GetTexture(ETileType.Grass),
+                    ETileType.StoneWallBorder => assetManager.GetTexture(ETileType.StoneWallBorder),
+                    _ => assetManager.GetTexture(ETileType.StoneWallBorder) // Fallback color
                 };
                 
                 int pixelX = x * TileSize;
                 int pixelY = y * TileSize;
                 
-                Raylib.DrawRectangle(pixelX, pixelY, TileSize, TileSize, tileColor);
+                Raylib.DrawTexture(tileTexture, pixelX, pixelY, Color.RayWhite);
                 Raylib.DrawRectangleLines(pixelX, pixelY, TileSize, TileSize, Color.Black);
             }
         }
