@@ -4,7 +4,7 @@ namespace GameProject.Source;
 
 internal class Program
 {
-    const int Columns = 25;
+    const int Columns = 20;
     const int Rows = 20;
     const int TileSize = 32;
     private const int TargetFps = 60;
@@ -12,7 +12,7 @@ internal class Program
     public static void Main()
     {
         Map GameMap = new Map(Columns, Rows, TileSize);
-        Raylib.InitWindow(800, 480, "Hello, World");
+        Raylib.InitWindow(1080, 720, "Hello, World");
         Raylib.SetTargetFPS(TargetFps);
 
         while (!Raylib.WindowShouldClose())
