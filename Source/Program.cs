@@ -4,15 +4,33 @@ namespace GameProject.Source;
 
 internal static class Program
 {
-    const int Columns = 45;
-    const int Rows = 68;
-    const int TileSize = 16;
+    // Map Tiles
+    const int Columns = 30;
+    const int Rows = 45;
+    const int TileSize = 24;
+    
+    // Game
     private const int TargetFps = 60;
+    
+    // Player
+    private const int PlayerSpawnPositionX = Rows / 2 * TileSize;
+    private const int PlayerSpawnPositionY = Columns / 2 * TileSize;
+    private const int PlayerSpawnSpeed = 1;
+    private const float PlayerScale = 0.4f;
+    private const PlayerState PlayerSpawnState = PlayerState.Default;
     
     public static void Main()
     {
         AssetManager assetManager = new AssetManager();
         Map gameMap = new Map(Columns, Rows, assetManager, TileSize);
+        Player player = new Player(
+            PlayerSpawnPositionX,
+            PlayerSpawnPositionY,
+            PlayerSpawnSpeed,
+            PlayerScale,
+            PlayerSpawnState,
+            assetManager
+        );
         
         Raylib.InitWindow(1080, 720, "GameProject");
         Raylib.SetTargetFPS(TargetFps);
@@ -24,6 +42,9 @@ internal static class Program
             Raylib.ClearBackground(Color.White);
 
             gameMap.DrawTile();
+            player.InitializePlayer();
+            // gameMap.DrawMapCollisions(player);
+            player.UpdatePosition();
             
             Raylib.EndDrawing();
         }
