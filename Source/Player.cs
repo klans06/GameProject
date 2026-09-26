@@ -30,15 +30,16 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
         {
             if (GameMap.IsTileSolid(PositionX, PositionY))
             {
-                Console.WriteLine("YOU COLLIDE!");
                 isMoving = false;
                 PaintPlayer();
             }
-            
-            PositionY -= Speed;
-            State = PlayerState.Default;
-            PaintPlayer();
-            isMoving = true;
+            else
+            {
+                PositionY -= Speed;
+                State = PlayerState.Default;
+                PaintPlayer();
+                isMoving = true;
+            }
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.S))
@@ -46,12 +47,15 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
             if (GameMap.IsTileSolid(PositionX, PositionY))
             {
                 isMoving = false;
+                PaintPlayer();
             }
-            
-            PositionY += Speed;
-            State = PlayerState.Default;
-            PaintPlayer();
-            isMoving = true;
+            else
+            {
+                PositionY += Speed;
+                State = PlayerState.Default;
+                PaintPlayer();
+                isMoving = true;
+            }
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.A))
@@ -59,12 +63,15 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
             if (GameMap.IsTileSolid(PositionX, PositionY))
             {
                 isMoving = false;
+                PaintPlayer();
             }
-            
-            PositionX -= Speed;
-            State = PlayerState.Default;
-            PaintPlayer();
-            isMoving = true;
+            else
+            {
+                PositionX -= Speed;
+                State = PlayerState.Default;
+                PaintPlayer();
+                isMoving = true;
+            }
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.D))
@@ -72,12 +79,15 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
             if (GameMap.IsTileSolid(PositionX, PositionY))
             {
                 isMoving = false;
+                PaintPlayer();
             }
-            
-            PositionX += Speed;
-            State = PlayerState.Default;
-            PaintPlayer();
-            isMoving = true;
+            else
+            {
+                PositionX += Speed;
+                State = PlayerState.Default;
+                PaintPlayer();
+                isMoving = true;
+            }
         }
 
         if (!isMoving)
