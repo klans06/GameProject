@@ -9,6 +9,19 @@ public enum TileType
     StoneWallBorder // 4
 }
 
+public struct Tile
+{
+    public TileType Type { get; set; }
+    public bool ShouldCollide { get; set; }
+    // Item, loot support later
+}
+//
+// public static readonly TileDefinition[] Definitions =
+// [
+//     new TileDefinition("Grass"),
+//     new TileDefinition("Wall", shouldCollide : true)
+// ];
+
 public enum PlayerState
 {
     Default, // 0

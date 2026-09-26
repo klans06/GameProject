@@ -3,7 +3,7 @@ using Raylib_cs;
 
 namespace GameProject.Source;
 
-public class Player(int posX, int posY, int speed, float playerScale, PlayerState state, AssetManager assetManager)
+public class Player(int posX, int posY, int speed, float playerScale, PlayerState state, AssetManager assetManager, Map map)
 {
     public int PositionX { get; private set; } = posX;
     public int PositionY { get; private set; } = posY;
@@ -12,6 +12,7 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
     public Vector2 PlayerPosition = new Vector2(posX, posY);
     public PlayerState State { get; private set; } = state;
     private AssetManager AssetManager { get; } = assetManager;
+    private Map GameMap { get; } = map;
 
     public void InitializePlayer()
     {
@@ -27,6 +28,13 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
         bool isMoving = false;
         if (Raylib.IsKeyDown(KeyboardKey.W))
         {
+            if (GameMap.IsTileSolid(PositionX, PositionY))
+            {
+                Console.WriteLine("YOU COLLIDE!");
+                isMoving = false;
+                PaintPlayer();
+            }
+            
             PositionY -= Speed;
             State = PlayerState.Default;
             PaintPlayer();
@@ -35,6 +43,11 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
 
         if (Raylib.IsKeyDown(KeyboardKey.S))
         {
+            if (GameMap.IsTileSolid(PositionX, PositionY))
+            {
+                isMoving = false;
+            }
+            
             PositionY += Speed;
             State = PlayerState.Default;
             PaintPlayer();
@@ -43,6 +56,11 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
 
         if (Raylib.IsKeyDown(KeyboardKey.A))
         {
+            if (GameMap.IsTileSolid(PositionX, PositionY))
+            {
+                isMoving = false;
+            }
+            
             PositionX -= Speed;
             State = PlayerState.Default;
             PaintPlayer();
@@ -51,6 +69,11 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
 
         if (Raylib.IsKeyDown(KeyboardKey.D))
         {
+            if (GameMap.IsTileSolid(PositionX, PositionY))
+            {
+                isMoving = false;
+            }
+            
             PositionX += Speed;
             State = PlayerState.Default;
             PaintPlayer();

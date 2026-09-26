@@ -6,7 +6,7 @@ namespace GameProject.Source;
 
 public class Map
 {
-    private readonly TileType[,] _tiles;
+    private readonly Tile[,] _tiles;
     private int TileSize { get; }
     private int Columns { get; }
     private int Rows { get; }
@@ -18,7 +18,7 @@ public class Map
         Rows = rows;
         TileSize = tileSize;
         AssetManager = assetManager;
-        _tiles = new TileType[rows, columns];
+        _tiles = new Tile[rows, columns];
         
         InitializeMap();
     }
@@ -29,16 +29,22 @@ public class Map
         {
             for (int y = 0; y < Columns; y++)
             {
-                TileType currentTile = _tiles[x, y];
+                bool isBorder = (x == 0 || x == Rows - 1 || y == 0 || y == Columns - 1);
 
-                if (x == 0 || x == Rows - 1 || y == 0 || y == Columns - 1)
+                _tiles[x, y] = new Tile
                 {
-                    _tiles[x, y] = TileType.StoneWallBorder;
-                }
-                else
-                {
-                    _tiles[x, y] = TileType.Grass;
-                }
+                    Type = isBorder ? TileType.StoneWallBorder : TileType.Grass,
+                    ShouldCollide = isBorder
+                };
+
+                // if (x == 0 || x == Rows - 1 || y == 0 || y == Columns - 1)
+                // {
+                //     _tiles[x, y].Type = TileType.StoneWallBorder;
+                // }
+                // else
+                // {
+                //     _tiles[x, y].Type = TileType.Grass;
+                // }
             }
         }
     }
@@ -49,7 +55,7 @@ public class Map
         {
             for (int y = 0; y < Columns; y++)
             {
-                Texture2D tileTexture = _tiles[x, y] switch
+                Texture2D tileTexture = _tiles[x, y].Type switch
                 {
                     TileType.Grass => AssetManager.GetMapTexture(TileType.Grass),
                     TileType.StoneWallBorder => AssetManager.GetMapTexture(TileType.StoneWallBorder),
@@ -68,8 +74,16 @@ public class Map
         }
     }
 
-    public void DrawMapBorderCollisions(Player player)
+    public bool IsTileSolid(int pixelX, int pixelY)
     {
-        Rectangle mapBorder = new Rectangle();
+        int gridX = pixelX / TileSize;
+        int gridY = pixelY / TileSize;
+
+        if (gridX < 0 || gridX >= Rows || gridY < 0 || gridY >= Columns)
+        {
+            return true;
+        }
+
+        return _tiles[gridX, gridY].ShouldCollide;
     }
 }

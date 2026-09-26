@@ -29,7 +29,8 @@ internal static class Program
             PlayerSpawnSpeed,
             PlayerScale,
             PlayerSpawnState,
-            assetManager
+            assetManager,
+            gameMap
         );
         
         Raylib.InitWindow(1080, 720, "GameProject");
