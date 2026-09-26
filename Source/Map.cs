@@ -1,23 +1,24 @@
 using System.Data;
+using System.Numerics;
 using Raylib_cs;
 
 namespace GameProject.Source;
 
 public class Map
 {
-    private readonly ETileType[,] _tiles;
+    private readonly TileType[,] _tiles;
     private int TileSize { get; }
     private int Columns { get; }
     private int Rows { get; }
-    private AssetManager TileManager { get; }
+    private AssetManager AssetManager { get; }
 
     public Map(int columns, int rows, AssetManager assetManager, int tileSize = 32)
     {
         Columns = columns;
         Rows = rows;
         TileSize = tileSize;
-        TileManager = assetManager;
-        _tiles = new ETileType[rows, columns];
+        AssetManager = assetManager;
+        _tiles = new TileType[rows, columns];
         
         InitializeMap();
     }
@@ -28,20 +29,20 @@ public class Map
         {
             for (int y = 0; y < Columns; y++)
             {
-                ETileType currentTile = _tiles[x, y];
+                TileType currentTile = _tiles[x, y];
 
                 if (x == 0 || x == Rows - 1 || y == 0 || y == Columns - 1)
                 {
-                    _tiles[x, y] = ETileType.StoneWallBorder;
+                    _tiles[x, y] = TileType.StoneWallBorder;
                 }
                 else
                 {
-                    _tiles[x, y] = ETileType.Grass;
+                    _tiles[x, y] = TileType.Grass;
                 }
             }
         }
     }
-
+ 
     public void DrawTile()
     {
         for (int x = 0; x < Rows; x++)
@@ -50,18 +51,25 @@ public class Map
             {
                 Texture2D tileTexture = _tiles[x, y] switch
                 {
-                    ETileType.Grass => TileManager.GetTexture(ETileType.Grass),
-                    ETileType.StoneWallBorder => TileManager.GetTexture(ETileType.StoneWallBorder),
-                    _ => TileManager.GetTexture(ETileType.StoneWallBorder) // Fallback color
+                    TileType.Grass => AssetManager.GetMapTexture(TileType.Grass),
+                    TileType.StoneWallBorder => AssetManager.GetMapTexture(TileType.StoneWallBorder),
+                    _ => AssetManager.GetMapTexture(TileType.StoneWallBorder) // Fallback color
                 };
                 
                 int pixelX = x * TileSize;
                 int pixelY = y * TileSize;
+
+                Vector2 tilePosition = new Vector2(pixelX, pixelY);
                 
                 Rectangle tileOutline = new Rectangle(pixelX, pixelY, TileSize, TileSize);
-                Raylib.DrawTexture(tileTexture, pixelX, pixelY, Color.RayWhite);
+                Raylib.DrawTextureEx(tileTexture, tilePosition, 360f, TileSize,Color.RayWhite);
                 Raylib.DrawRectangleLinesEx(tileOutline, 0.5f, Color.Black);
             }
         }
+    }
+
+    public void DrawMapBorderCollisions(Player player)
+    {
+        Rectangle mapBorder = new Rectangle();
     }
 }
