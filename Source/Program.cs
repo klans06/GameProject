@@ -5,8 +5,8 @@ namespace GameProject.Source;
 internal static class Program
 {
     // Map Tiles
-    const int Columns = 30;
-    const int Rows = 45;
+    const int Columns = 100;
+    const int Rows = 100;
     const int TileSize = 24;
     
     // Game
@@ -18,7 +18,7 @@ internal static class Program
     // Player
     private const int PlayerSpawnPositionX = Rows / 2 * TileSize;
     private const int PlayerSpawnPositionY = Columns / 2 * TileSize;
-    private const int PlayerSpawnSpeed = 1;
+    private const int PlayerSpawnSpeed = 2;
     private const float PlayerScale = 0.4f;
     private const PlayerState PlayerSpawnState = PlayerState.Default;
     
@@ -35,23 +35,24 @@ internal static class Program
             assetManager,
             gameMap
         );
-        PlayerCamera playerCamera = new PlayerCamera(player, ScreenHeight, ScreenWidth);
+        PlayerCamera playerCamera = new PlayerCamera(player, gameMap, ScreenHeight, ScreenWidth);
         
         Raylib.InitWindow(ScreenWidth, ScreenHeight, Title);
         Raylib.SetTargetFPS(TargetFps);
         assetManager.LoadContent();
+        playerCamera.InitializePlayerCamera();
 
         while (!Raylib.WindowShouldClose())
         {
+            player.UpdatePosition();
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.White);
-
-            gameMap.DrawTile();
-            // player.InitializePlayer();
-            // player.PaintPlayer();
-            playerCamera.InitializePlayerCamera();
-            // gameMap.DrawMapCollisions(player);
-            player.UpdatePosition();
+            
+            Raylib.BeginMode2D(playerCamera.Camera);
+                gameMap.DrawTile();
+                player.PaintPlayer();
+                playerCamera.UpdatePosition();
+            Raylib.EndMode2D();
             
             Raylib.EndDrawing();
         }
