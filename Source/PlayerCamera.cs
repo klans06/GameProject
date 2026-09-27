@@ -3,28 +3,42 @@ using Raylib_cs;
 
 namespace GameProject.Source;
 
-public class PlayerCamera(Player player, int screenHeight, int screenWidth, float rotation = 0f, float zoom = 1f)
+public class PlayerCamera(Player player, Map map, int screenHeight, int screenWidth, float rotation = 0f, float zoom = 1f)
 {
     private Player Player { get; set; } = player;
+    private Map GameMap { get; set; } = map;
     private float Rotation { get; set; } = rotation;
     private float Zoom { get; set; } = zoom;
     private int ScreenHeight { get; set; } = screenHeight;
     private int ScreenWidth { get; set; } = screenWidth;
 
-    private Camera2D Camera;
+    public Camera2D Camera;
 
     public void InitializePlayerCamera()
     {
         Camera.Offset = new Vector2(ScreenWidth / 2.0f, ScreenHeight / 2.0f);
-        Camera.Target = new Vector2(Player.PositionX, Player.PositionY);
+        Camera.Target = GetClampedPosition();
         Camera.Rotation = Rotation;
         Camera.Zoom = Zoom;
-        
-        Raylib.BeginMode2D(Camera);
     }
 
     public void UpdatePosition()
     {
+        Camera.Target = GetClampedPosition();
+    }
+
+    private Vector2 GetClampedPosition()
+    {
+        float playerCenterX = Player.PositionX + (Player.PlayerObject.Width / 2.0f);
+        float playerCenterY = Player.PositionY + (Player.PlayerObject.Height / 2.0f);
+        float totalMapWidth = GameMap.Columns * GameMap.TileSize;
+        float totalMapHeight = GameMap.Rows * GameMap.TileSize;
+        float halfScreenW = (ScreenWidth / 2.0f) / Zoom;
+        float halfScreenH = (ScreenHeight / 2.0f) / Zoom;
+        float clampedX = Math.Clamp(playerCenterX, halfScreenW, totalMapWidth - halfScreenW);
+        float clampedY = Math.Clamp(playerCenterY, halfScreenH, totalMapHeight - halfScreenH);
         
+        Vector2 clampedPosition = new Vector2(clampedX, clampedY);
+        return clampedPosition;
     }
 }
