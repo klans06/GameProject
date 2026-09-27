@@ -7,9 +7,9 @@ namespace GameProject.Source;
 public class Map
 {
     private readonly Tile[,] _tiles;
-    private int TileSize { get; }
-    private int Columns { get; }
-    private int Rows { get; }
+    public int TileSize { get; }
+    public int Columns { get; }
+    public int Rows { get; }
     private AssetManager AssetManager { get; }
 
     public Map(int columns, int rows, AssetManager assetManager, int tileSize = 32)
