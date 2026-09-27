@@ -8,22 +8,13 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
 {
     public int PositionX { get; private set; } = posX;
     public int PositionY { get; private set; } = posY;
-    public int Speed { get; private set; } = speed;
+    private int Speed { get; set; } = speed;
     private float PlayerScale { get; set; } = playerScale;
-    public Vector2 PlayerPosition;
-    public PlayerState State { get; private set; } = state;
+    private PlayerState State { get; set; } = state;
     private AssetManager AssetManager { get; } = assetManager;
     private Map GameMap { get; } = map;
     public Texture2D PlayerObject;
-
-    public void InitializePlayer()
-    {
-        PlayerObject = AssetManager.GetPlayerTexture(State);
-        PlayerPosition = Vector2.Create(PositionX, PositionY);
-        
-        // Raylib.DrawTexture(texture, PositionX, PositionY, Color.RayWhite);
-        Raylib.DrawTextureEx(PlayerObject, PlayerPosition, 360f, PlayerScale, Color.RayWhite);
-    }
+    private Vector2 PlayerPosition;
 
     public void UpdatePosition()
     {
@@ -91,25 +82,14 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
         if (!isMoving)
         {
             State = PlayerState.Default;
-            // Skin = Skin switch
-            // {
-            //     PlayerSkin.WalkingLeft => PlayerSkin.IdleRight,
-            //     PlayerSkin.WalkingRight => PlayerSkin.IdleLeft,
-            //     PlayerSkin.WalkingForward => PlayerSkin.IdleForward,
-            //     PlayerSkin.WalkingBackward => PlayerSkin.IdleBackward,
-            //     _ => PlayerSkin.Default
-            // };
         }
     }
 
     public void PaintPlayer()
     {
-        // Texture2D texture = AssetManager.GetPlayerTexture(State);
-        // Vector2 position = new Vector2(PositionX, PositionY);
         PlayerObject = AssetManager.GetPlayerTexture(State);
         PlayerPosition = Vector2.Create(PositionX, PositionY);
         
-        // Raylib.DrawTexture(texture, PositionX, PositionY, Color.RayWhite);
         Raylib.DrawTextureEx(PlayerObject, PlayerPosition, 360f, PlayerScale, Color.RayWhite);
     }
 }

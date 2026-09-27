@@ -27,6 +27,8 @@ public class PlayerCamera(Player player, Map map, int screenHeight, int screenWi
         Camera.Target = GetClampedPosition();
     }
 
+    // Calculate position to avoid camera peeking past border tiles
+    // Has offset slightly towards the top right
     private Vector2 GetClampedPosition()
     {
         float playerCenterX = Player.PositionX + (Player.PlayerObject.Width / 2.0f);

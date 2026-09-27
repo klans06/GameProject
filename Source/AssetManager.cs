@@ -17,7 +17,6 @@ public class AssetManager
         _playerSkins[PlayerState.Default] = Raylib.LoadTexture("./Assets/character_maleAdventurer_side.png");
         
         // Building Tiles
-        
     }
 
     public Texture2D GetMapTexture(TileType type)

@@ -36,15 +36,6 @@ public class Map
                     Type = isBorder ? TileType.StoneWallBorder : TileType.Grass,
                     ShouldCollide = isBorder
                 };
-
-                // if (x == 0 || x == Rows - 1 || y == 0 || y == Columns - 1)
-                // {
-                //     _tiles[x, y].Type = TileType.StoneWallBorder;
-                // }
-                // else
-                // {
-                //     _tiles[x, y].Type = TileType.Grass;
-                // }
             }
         }
     }
