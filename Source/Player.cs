@@ -9,18 +9,20 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
     public int PositionY { get; private set; } = posY;
     public int Speed { get; private set; } = speed;
     private float PlayerScale { get; set; } = playerScale;
-    public Vector2 PlayerPosition = new Vector2(posX, posY);
+    public Vector2 PlayerPosition;
     public PlayerState State { get; private set; } = state;
     private AssetManager AssetManager { get; } = assetManager;
     private Map GameMap { get; } = map;
+    // private Rectangle PlayerObject { get; set; }
+    private Texture2D PlayerObject;
 
     public void InitializePlayer()
     {
-        Texture2D texture = AssetManager.GetPlayerTexture(State);
-        Vector2 position = new Vector2(PositionX, PositionY);
+        PlayerObject = AssetManager.GetPlayerTexture(State);
+        PlayerPosition = Vector2.Create(PositionX, PositionY);
         
         // Raylib.DrawTexture(texture, PositionX, PositionY, Color.RayWhite);
-        Raylib.DrawTextureEx(texture, position, 360f, PlayerScale, Color.RayWhite);
+        Raylib.DrawTextureEx(PlayerObject, PlayerPosition, 360f, PlayerScale, Color.RayWhite);
     }
 
     public void UpdatePosition()
@@ -31,14 +33,13 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
             if (GameMap.IsTileSolid(PositionX, PositionY))
             {
                 isMoving = false;
-                PaintPlayer();
             }
             else
             {
                 PositionY -= Speed;
                 State = PlayerState.Default;
-                PaintPlayer();
                 isMoving = true;
+                PaintPlayer();
             }
         }
 
@@ -79,14 +80,14 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
             if (GameMap.IsTileSolid(PositionX, PositionY))
             {
                 isMoving = false;
-                PaintPlayer();
+                // PaintPlayer();
             }
             else
             {
                 PositionX += Speed;
                 State = PlayerState.Default;
-                PaintPlayer();
                 isMoving = true;
+                PaintPlayer();
             }
         }
 
@@ -107,10 +108,12 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
 
     private void PaintPlayer()
     {
-        Texture2D texture = AssetManager.GetPlayerTexture(State);
-        Vector2 position = new Vector2(PositionX, PositionY);
+        // Texture2D texture = AssetManager.GetPlayerTexture(State);
+        // Vector2 position = new Vector2(PositionX, PositionY);
+        PlayerObject = AssetManager.GetPlayerTexture(State);
+        PlayerPosition = Vector2.Create(PositionX, PositionY);
         
         // Raylib.DrawTexture(texture, PositionX, PositionY, Color.RayWhite);
-        Raylib.DrawTextureEx(texture, position, 360f, PlayerScale, Color.RayWhite);
+        Raylib.DrawTextureEx(PlayerObject, PlayerPosition, 360f, PlayerScale, Color.RayWhite);
     }
 }

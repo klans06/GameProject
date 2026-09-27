@@ -10,6 +10,9 @@ internal static class Program
     const int TileSize = 24;
     
     // Game
+    private const string Title = "GameProject";
+    private const int ScreenWidth = 1080;
+    private const int ScreenHeight = 720;
     private const int TargetFps = 60;
     
     // Player
@@ -32,8 +35,9 @@ internal static class Program
             assetManager,
             gameMap
         );
+        PlayerCamera playerCamera = new PlayerCamera(player, ScreenHeight, ScreenWidth);
         
-        Raylib.InitWindow(1080, 720, "GameProject");
+        Raylib.InitWindow(ScreenWidth, ScreenHeight, Title);
         Raylib.SetTargetFPS(TargetFps);
         assetManager.LoadContent();
 
@@ -43,7 +47,9 @@ internal static class Program
             Raylib.ClearBackground(Color.White);
 
             gameMap.DrawTile();
-            player.InitializePlayer();
+            // player.InitializePlayer();
+            // player.PaintPlayer();
+            playerCamera.InitializePlayerCamera();
             // gameMap.DrawMapCollisions(player);
             player.UpdatePosition();
             
