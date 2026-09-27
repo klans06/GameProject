@@ -1,4 +1,5 @@
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 using Raylib_cs;
 
 namespace GameProject.Source;
@@ -13,8 +14,7 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
     public PlayerState State { get; private set; } = state;
     private AssetManager AssetManager { get; } = assetManager;
     private Map GameMap { get; } = map;
-    // private Rectangle PlayerObject { get; set; }
-    private Texture2D PlayerObject;
+    public Texture2D PlayerObject;
 
     public void InitializePlayer()
     {
@@ -30,7 +30,8 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
         bool isMoving = false;
         if (Raylib.IsKeyDown(KeyboardKey.W))
         {
-            if (GameMap.IsTileSolid(PositionX, PositionY))
+            int positionY = PositionY - Speed - 1;
+            if (GameMap.IsTileSolid(PositionX, positionY))
             {
                 isMoving = false;
             }
@@ -39,62 +40,57 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
                 PositionY -= Speed;
                 State = PlayerState.Default;
                 isMoving = true;
-                PaintPlayer();
             }
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.S))
         {
-            if (GameMap.IsTileSolid(PositionX, PositionY))
+            int positionY = PositionY + Speed + 1;
+            if (GameMap.IsTileSolid(PositionX, positionY))
             {
                 isMoving = false;
-                PaintPlayer();
             }
             else
             {
                 PositionY += Speed;
                 State = PlayerState.Default;
-                PaintPlayer();
                 isMoving = true;
             }
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.A))
         {
-            if (GameMap.IsTileSolid(PositionX, PositionY))
+            int positionX = PositionX - Speed - 1;
+            if (GameMap.IsTileSolid(positionX, PositionY))
             {
                 isMoving = false;
-                PaintPlayer();
             }
             else
             {
                 PositionX -= Speed;
                 State = PlayerState.Default;
-                PaintPlayer();
                 isMoving = true;
             }
         }
 
         if (Raylib.IsKeyDown(KeyboardKey.D))
         {
-            if (GameMap.IsTileSolid(PositionX, PositionY))
+            int positionX = PositionX + Speed + 1;
+            if (GameMap.IsTileSolid(positionX, PositionY))
             {
                 isMoving = false;
-                // PaintPlayer();
             }
             else
             {
                 PositionX += Speed;
                 State = PlayerState.Default;
                 isMoving = true;
-                PaintPlayer();
             }
         }
 
         if (!isMoving)
         {
             State = PlayerState.Default;
-            PaintPlayer();
             // Skin = Skin switch
             // {
             //     PlayerSkin.WalkingLeft => PlayerSkin.IdleRight,
@@ -106,7 +102,7 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
         }
     }
 
-    private void PaintPlayer()
+    public void PaintPlayer()
     {
         // Texture2D texture = AssetManager.GetPlayerTexture(State);
         // Vector2 position = new Vector2(PositionX, PositionY);
