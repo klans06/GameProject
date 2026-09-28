@@ -121,6 +121,6 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
 
         PlayerPosition = Vector2.Create(PositionX, PositionY);
 
-        Raylib.DrawTextureRec(AssetManager.PlayerTexture, PlayerObject, PlayerPosition, Color.RayWhite);
+        Raylib.DrawTextureRec(AssetManager.PlayerTexture[0], PlayerObject, PlayerPosition, Color.RayWhite);
     }
 }
