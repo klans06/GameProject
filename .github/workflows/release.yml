@@ -1,0 +1,78 @@
+name: Build and Release Game
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            runtime: win-x64
+            archive_name: DungeonCrawler-Windows.zip
+          - os: ubuntu-latest
+            runtime: linux-x64
+            archive_name: DungeonCrawler-Linux.tar.gz
+          - os: macos-latest
+            runtime: osx-x64
+            archive_name: DungeonCrawler-MacOS.zip
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish Game
+        run: dotnet publish -c Release -r ${{ matrix.runtime }} --self-contained true -o ./publish
+
+      - name: Copy Assets (Windows & Linux)
+        if: matrix.os != 'macos-latest'
+        shell: pwsh
+        run: Copy-Item -Recurse -Force assets ./publish/assets
+
+      - name: Copy Assets (macOS)
+        if: matrix.os == 'macos-latest'
+        run: cp -r assets ./publish/assets
+
+      - name: Package Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          cd publish
+          Compress-Archive -Path * -DestinationPath ../${{ matrix.archive_name }}
+
+      - name: Package Linux & macOS
+        if: matrix.os != 'windows-latest'
+        run: |
+          cd publish
+          tar -czf ../${{ matrix.archive_name }} *
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ matrix.runtime }}
+          path: ${{ matrix.archive_name }}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-by-flat: true
+
+      - name: Create GitHub Release and Upload Files
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
