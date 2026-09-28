@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="../char_a_p1_0bas_humn_v01.png">
+    <SubTexture name="default" x="0" y="0" width="64" height="64"/>
+    
+    <SubTexture name="walk_down_0" x="0"   y="256" width="64" height="64"/>
+    <SubTexture name="walk_down_1" x="64"  y="256" width="64" height="64"/>
+    <SubTexture name="walk_down_2" x="128" y="256" width="64" height="64"/>
+    <SubTexture name="walk_down_3" x="192" y="256" width="64" height="64"/>
+    <SubTexture name="walk_down_4" x="256" y="256" width="64" height="64"/>
+    <SubTexture name="walk_down_5" x="320" y="256" width="64" height="64"/>
+    
+    <SubTexture name="walk_left_0" x="0"   y="320" width="64" height="64"/>
+    <SubTexture name="walk_left_1" x="64"  y="320" width="64" height="64"/>
+    <SubTexture name="walk_left_2" x="128" y="320" width="64" height="64"/>
+    <SubTexture name="walk_left_3" x="192" y="320" width="64" height="64"/>
+    <SubTexture name="walk_left_4" x="256" y="320" width="64" height="64"/>
+    <SubTexture name="walk_left_5" x="320" y="320" width="64" height="64"/>
+    
+    <SubTexture name="walk_right_0" x="0"   y="384" width="64" height="64"/>
+    <SubTexture name="walk_right_1" x="64"  y="384" width="64" height="64"/>
+    <SubTexture name="walk_right_2" x="128" y="384" width="64" height="64"/>
+    <SubTexture name="walk_right_3" x="192" y="384" width="64" height="64"/>
+    <SubTexture name="walk_right_4" x="256" y="384" width="64" height="64"/>
+    <SubTexture name="walk_right_5" x="320" y="384" width="64" height="64"/>
+    
+    <SubTexture name="walk_up_0" x="0"   y="448" width="64" height="64"/>
+    <SubTexture name="walk_up_1" x="64"  y="448" width="64" height="64"/>
+    <SubTexture name="walk_up_2" x="128" y="448" width="64" height="64"/>
+    <SubTexture name="walk_up_3" x="192" y="448" width="64" height="64"/>
+    <SubTexture name="walk_up_4" x="256" y="448" width="64" height="64"/>
+    <SubTexture name="walk_up_5" x="320" y="448" width="64" height="64"/>
+</TextureAtlas>

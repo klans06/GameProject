@@ -1,17 +1,15 @@
-using Raylib_cs;
 using System.Xml.Linq;
+using System.Xml.Serialization;
+using Raylib_cs;
 
 namespace Overtile.Source.Graphics;
 
 public class TextureAtlas
-{
-    // Ignore
-    
-    // private readonly Dictionary<string, Rectangle> _regions = new();
-    // public Texture2D Texture { get; }
+{ 
+    // private XDocument _document = XDocument.Load("../../Assets/Atlases/player_walk.xml");
     //
-    // public TextureAtlas(string pngPath, string xmlPath)
+    // public void LoadTextureAtlas()
     // {
-    //     Texture = Raylib.LoadTexture("./Assets/character_maleAdventurer_sheetHD.png");
+    //     XDocument walkForward = _document.Elements("walk_down_1");
     // }
 }

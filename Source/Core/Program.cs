@@ -23,7 +23,7 @@ internal static class Program
     private const int PlayerSpawnPositionX = Rows / 2 * TileSize;
     private const int PlayerSpawnPositionY = Columns / 2 * TileSize;
     private const int PlayerSpawnSpeed = 2;
-    private const float PlayerScale = 0.4f;
+    private const float PlayerScale = 1f;
     private const PlayerState PlayerSpawnState = PlayerState.Default;
     
     public static void Main()
@@ -43,24 +43,27 @@ internal static class Program
         
         Raylib.InitWindow(ScreenWidth, ScreenHeight, Title);
         Raylib.SetTargetFPS(TargetFps);
-        assetManager.LoadContent();
+        assetManager.LoadMapContent();
+        assetManager.LoadPlayerContent();
         playerCamera.InitializePlayerCamera();
 
         while (!Raylib.WindowShouldClose())
         {
+            Delta.CalculateDelta();
             player.UpdatePosition();
-            Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.White);
-                Raylib.BeginMode2D(playerCamera.Camera);
-                    gameMap.DrawTile();
-                    player.PaintPlayer();
-                    playerCamera.UpdatePosition();
-                Raylib.EndMode2D();
-            Raylib.EndDrawing();
+                Raylib.BeginDrawing();
+                Raylib.ClearBackground(Color.White);
+                    Raylib.BeginMode2D(playerCamera.Camera);
+                        gameMap.DrawTile();
+                        player.PaintPlayer();
+                        playerCamera.UpdatePosition();
+                    Raylib.EndMode2D();
+                Raylib.EndDrawing();
         }
         
         Raylib.CloseWindow();
-        assetManager.UnloadContent();
+        assetManager.UnloadMapContent();
+        assetManager.UnloadPlayerContent();
     }
 }
 
