@@ -11,11 +11,11 @@ public class AssetManager
     private readonly Dictionary<TileType, Texture2D> _tilesTextures = new();
     // private readonly Dictionary<PlayerState, Texture2D> _playerSkins = new();
     private readonly Dictionary<string, Rectangle> _playerStates = new();
-    public Texture2D PlayerTexture;
+    public Texture2D[] PlayerTexture = new Texture2D[27];
 
     public void LoadPlayerContent()
     {
-        PlayerTexture = Raylib.LoadTexture("./Assets/char_a_p1_0bas_humn_v00.png");
+        PlayerTexture[0] = Raylib.LoadTexture("./Assets/char_a_p1_0bas_humn_v00.png");
         string xmlPath = "./Assets/Atlases/player_walk.xml";
 
         XDocument doc = XDocument.Load(xmlPath);
@@ -77,7 +77,11 @@ public class AssetManager
 
     public void UnloadPlayerContent()
     {
-        Raylib.UnloadTexture(PlayerTexture);
+        foreach (var i in PlayerTexture)
+        {
+            Raylib.UnloadTexture(i);
+        }
+
         _playerStates.Clear();
     }
 }
