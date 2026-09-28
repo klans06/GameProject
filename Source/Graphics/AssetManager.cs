@@ -1,6 +1,6 @@
 using Raylib_cs;
 
-namespace GameProject.Source;
+namespace Overtile.Source;
 
 public class AssetManager
 {

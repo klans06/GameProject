@@ -1,7 +1,7 @@
 using Raylib_cs;
 using System.Xml.Linq;
 
-namespace GameProject.Source;
+namespace Overtile.Source;
 
 public class TextureAtlas
 {

@@ -1,4 +1,4 @@
-namespace GameProject.Source;
+namespace Overtile.Source;
 
 public enum TileType
 {

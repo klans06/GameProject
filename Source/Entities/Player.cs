@@ -2,7 +2,7 @@ using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
 using Raylib_cs;
 
-namespace GameProject.Source;
+namespace Overtile.Source;
 
 public class Player(int posX, int posY, int speed, float playerScale, PlayerState state, AssetManager assetManager, Map map)
 {

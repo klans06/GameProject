@@ -2,7 +2,7 @@ using System.Data;
 using System.Numerics;
 using Raylib_cs;
 
-namespace GameProject.Source;
+namespace Overtile.Source;
 
 public class Map
 {

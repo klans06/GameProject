@@ -1,6 +1,6 @@
 ﻿using Raylib_cs;
 
-namespace GameProject.Source;
+namespace Overtile.Source;
 
 internal static class Program
 {
@@ -10,7 +10,7 @@ internal static class Program
     const int TileSize = 24;
     
     // Game
-    private const string Title = "GameProject";
+    private const string Title = "Overtile";
     private const int ScreenWidth = 1080;
     private const int ScreenHeight = 720;
     private const int TargetFps = 60;

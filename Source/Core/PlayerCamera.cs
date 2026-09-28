@@ -1,7 +1,7 @@
 using System.Numerics;
 using Raylib_cs;
 
-namespace GameProject.Source;
+namespace Overtile.Source;
 
 public class PlayerCamera(Player player, Map map, int screenHeight, int screenWidth, float rotation = 0f, float zoom = 1f)
 {
