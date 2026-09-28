@@ -47,13 +47,11 @@ internal static class Program
             player.UpdatePosition();
             Raylib.BeginDrawing();
             Raylib.ClearBackground(Color.White);
-            
-            Raylib.BeginMode2D(playerCamera.Camera);
-                gameMap.DrawTile();
-                player.PaintPlayer();
-                playerCamera.UpdatePosition();
-            Raylib.EndMode2D();
-            
+                Raylib.BeginMode2D(playerCamera.Camera);
+                    gameMap.DrawTile();
+                    player.PaintPlayer();
+                    playerCamera.UpdatePosition();
+                Raylib.EndMode2D();
             Raylib.EndDrawing();
         }
         
