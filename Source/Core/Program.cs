@@ -1,6 +1,10 @@
 ﻿using Raylib_cs;
 
-namespace Overtile.Source;
+using Overtile.Source.Graphics;
+using Overtile.Source.Entities;
+using Overtile.Source.World;
+
+namespace Overtile.Source.Core;
 
 internal static class Program
 {

@@ -1,4 +1,4 @@
-namespace Overtile.Source;
+namespace Overtile.Source.World;
 
 public enum TileType
 {

@@ -1,6 +1,8 @@
 using Raylib_cs;
 
-namespace Overtile.Source;
+using Overtile.Source.World;
+
+namespace Overtile.Source.Graphics;
 
 public class AssetManager
 {

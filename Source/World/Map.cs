@@ -2,7 +2,9 @@ using System.Data;
 using System.Numerics;
 using Raylib_cs;
 
-namespace Overtile.Source;
+using Overtile.Source.Graphics;
+
+namespace Overtile.Source.World;
 
 public class Map
 {

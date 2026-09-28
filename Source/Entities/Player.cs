@@ -2,7 +2,10 @@ using System.Numerics;
 using System.Reflection.Metadata.Ecma335;
 using Raylib_cs;
 
-namespace Overtile.Source;
+using Overtile.Source.World;
+using Overtile.Source.Graphics;
+
+namespace Overtile.Source.Entities;
 
 public class Player(int posX, int posY, int speed, float playerScale, PlayerState state, AssetManager assetManager, Map map)
 {
