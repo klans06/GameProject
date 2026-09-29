@@ -1,6 +1,10 @@
 ﻿using Raylib_cs;
 
-namespace GameProject.Source;
+using Overtile.Source.Graphics;
+using Overtile.Source.Entities;
+using Overtile.Source.World;
+
+namespace Overtile.Source.Core;
 
 internal static class Program
 {
@@ -10,7 +14,7 @@ internal static class Program
     const int TileSize = 24;
     
     // Game
-    private const string Title = "GameProject";
+    private const string Title = "Overtile";
     private const int ScreenWidth = 1080;
     private const int ScreenHeight = 720;
     private const int TargetFps = 60;
@@ -19,9 +23,12 @@ internal static class Program
     private const int PlayerSpawnPositionX = Rows / 2 * TileSize;
     private const int PlayerSpawnPositionY = Columns / 2 * TileSize;
     private const int PlayerSpawnSpeed = 2;
-    private const float PlayerScale = 0.4f;
+    private const float PlayerScale = 1.7f;
     private const PlayerState PlayerSpawnState = PlayerState.Default;
     
+    /// <summary>
+    /// Initializes the game, runs the input and rendering loop, and releases resources on exit.
+    /// </summary>
     public static void Main()
     {
         AssetManager assetManager = new AssetManager();
@@ -39,26 +46,26 @@ internal static class Program
         
         Raylib.InitWindow(ScreenWidth, ScreenHeight, Title);
         Raylib.SetTargetFPS(TargetFps);
-        assetManager.LoadContent();
+        assetManager.LoadMapContent();
+        assetManager.LoadPlayerContent();
         playerCamera.InitializePlayerCamera();
 
         while (!Raylib.WindowShouldClose())
         {
             player.UpdatePosition();
-            Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.White);
-            
-            Raylib.BeginMode2D(playerCamera.Camera);
-                gameMap.DrawTile();
-                player.PaintPlayer();
-                playerCamera.UpdatePosition();
-            Raylib.EndMode2D();
-            
-            Raylib.EndDrawing();
+                Raylib.BeginDrawing();
+                Raylib.ClearBackground(Color.White);
+                    Raylib.BeginMode2D(playerCamera.Camera);
+                        gameMap.DrawTile();
+                        player.PaintPlayer();
+                        playerCamera.UpdatePosition();
+                    Raylib.EndMode2D();
+                Raylib.EndDrawing();
         }
         
+        assetManager.UnloadPlayerContent();
         Raylib.CloseWindow();
-        assetManager.UnloadContent();
+        assetManager.UnloadMapContent();
     }
 }
 

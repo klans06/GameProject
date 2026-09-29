@@ -1,4 +1,4 @@
-namespace GameProject.Source;
+namespace Overtile.Source.World;
 
 public interface Building
 {
