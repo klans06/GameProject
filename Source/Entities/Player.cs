@@ -13,9 +13,9 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
     public int PositionY { get; private set; } = posY;
     private int Speed { get; set; } = speed;
     private float PlayerScale { get; set; } = playerScale;
-    
-    private int _currentFrame = 0;
-    private float animationTimer = 0f;
+
+    private int _currentFrame;
+    private readonly int _animationCount = 5;
     private const float FrameDuration = 0.135f;
     
     private PlayerState State { get; set; } = state;
@@ -109,18 +109,18 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
     public void PaintPlayer()
     {
         string statePrefix = GetAnimationPrefix(State);
+        
+        _currentFrame++;
+        if (_currentFrame >= _animationCount)
+        {
+            _currentFrame = 0;
+        }
 
-        if (State != PlayerState.Default)
-        {
-            PlayerObject = AssetManager.GetPlayerRec(statePrefix + Raylib.GetFrameTime());
-        }
-        else
-        {
-            PlayerObject = AssetManager.GetPlayerRec(statePrefix);
-        }
+        PlayerObject = State != PlayerState.Default
+            ? AssetManager.GetPlayerRec(statePrefix + _currentFrame)
+            : AssetManager.GetPlayerRec(statePrefix);
 
         PlayerPosition = Vector2.Create(PositionX, PositionY);
-
-        Raylib.DrawTextureRec(AssetManager.PlayerTexture[0], PlayerObject, PlayerPosition, Color.RayWhite);
+        Raylib.DrawTextureRec(AssetManager.PlayerTexture, PlayerObject, PlayerPosition, Color.RayWhite);
     }
 }
