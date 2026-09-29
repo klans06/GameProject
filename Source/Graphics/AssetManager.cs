@@ -43,8 +43,11 @@ public class AssetManager
     public void LoadMapContent()
     {
         // Map Tiles
-        _tilesTextures[TileType.Grass] = Raylib.LoadTexture("./Assets/tile_0000.png");
-        _tilesTextures[TileType.StoneWallBorder] = Raylib.LoadTexture("./Assets/tile_0109.png");
+        _tilesTextures[TileType.Grass] = Raylib.LoadTexture("./Assets/Map/tile_0000.png");
+        _tilesTextures[TileType.GrassWeed] = Raylib.LoadTexture("./Assets/Map/tile_0001.png");
+        _tilesTextures[TileType.GrassWFlowers] = Raylib.LoadTexture("./Assets/Map/tile_0002.png");
+        _tilesTextures[TileType.Shrub] = Raylib.LoadTexture("./Assets/Map/tile_0005.png");
+        _tilesTextures[TileType.StoneWallBorder] = Raylib.LoadTexture("./Assets/Map/tile_0109.png");
         
         // Player State
         // _playerSkins[PlayerState.Default] = Raylib.LoadTexture("./Assets/character_maleAdventurer_side.png");

@@ -5,9 +5,9 @@ namespace Overtile.Source.World;
 public enum TileType
 {
     Grass,
-    GrassWFlower,
-    GrassWFlowerPatch,
-    Dirt,
+    GrassWeed,
+    GrassWFlowers,
+    Shrub,
     StoneWallBorder
 }
 
