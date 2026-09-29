@@ -135,10 +135,9 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
         PlayerObject = State != PlayerState.Default
             ? AssetManager.GetPlayerRec(statePrefix + _currentFrameIndex)
             : AssetManager.GetPlayerRec(statePrefix);
+        PlayerPosition = Vector2.Create(PositionX, PositionY);
         Rectangle textureRec = new Rectangle(PlayerPosition, PlayerObject.Width * PlayerScale,
             PlayerObject.Height * PlayerScale);
-
-        PlayerPosition = Vector2.Create(PositionX, PositionY);
         Raylib.DrawTexturePro(AssetManager.PlayerTexture, PlayerObject, textureRec, Vector2.Zero, 0f, Color.RayWhite);
         // Raylib.DrawTextureRec(AssetManager.PlayerTexture, PlayerObject, PlayerPosition, Color.RayWhite);
     }
