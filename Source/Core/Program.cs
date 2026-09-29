@@ -23,7 +23,7 @@ internal static class Program
     private const int PlayerSpawnPositionX = Rows / 2 * TileSize;
     private const int PlayerSpawnPositionY = Columns / 2 * TileSize;
     private const int PlayerSpawnSpeed = 2;
-    private const float PlayerScale = 1f;
+    private const float PlayerScale = 1.5f;
     private const PlayerState PlayerSpawnState = PlayerState.Default;
     
     public static void Main()
@@ -49,7 +49,6 @@ internal static class Program
 
         while (!Raylib.WindowShouldClose())
         {
-            Delta.CalculateDelta();
             player.UpdatePosition();
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
