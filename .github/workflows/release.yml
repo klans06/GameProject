@@ -82,45 +82,4 @@ jobs:
         with:
           files: artifacts/*
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        if: matrix.os != 'macos-latest'
-        shell: pwsh
-        run: Copy-Item -Recurse -Force assets ./publish/assets
-
-      - name: Copy Assets (macOS)
-        if: matrix.os == 'macos-latest'
-        run: cp -r assets ./publish/assets
-
-      - name: Package Windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          cd publish
-          Compress-Archive -Path * -DestinationPath ../${{ matrix.archive_name }}
-
-      - name: Package Linux & macOS
-        if: matrix.os != 'windows-latest'
-        run: |
-          cd publish
-          tar -czf ../${{ matrix.archive_name }} *
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-${{ matrix.runtime }}
-          path: ${{ matrix.archive_name }}
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download All Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-          merge-by-flat: true
-
-      - name: Create GitHub Release and Upload Files
-        uses: softprops/action-gh-release@v2
-        with:
-          files: artifacts/*
-        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
