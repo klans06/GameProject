@@ -15,5 +15,6 @@ of features I plan to add in below.
 
 <img width="835" height="489" alt="image" src="https://github.com/user-attachments/assets/d40fe295-e814-4447-97db-6c31847db970" />
 
-
+### AI Usage
+I may use AI for logical reasoning and referencing but, I do not put AI-generated ("copy and paste") code into my project - this is because I want to understand my code and actually learn why it does what it does. I do use AI such as GitHub Copilot for help with reviewing code, generating commit messages and doing very minor fixes when in a PR request.
 
