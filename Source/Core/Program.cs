@@ -60,9 +60,9 @@ internal static class Program
                 Raylib.EndDrawing();
         }
         
+        assetManager.UnloadPlayerContent();
         Raylib.CloseWindow();
         assetManager.UnloadMapContent();
-        assetManager.UnloadPlayerContent();
     }
 }
 

@@ -115,7 +115,7 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
         {
             _currentFrame = 0;
         }
-
+        
         PlayerObject = State != PlayerState.Default
             ? AssetManager.GetPlayerRec(statePrefix + _currentFrame)
             : AssetManager.GetPlayerRec(statePrefix);
