@@ -26,6 +26,9 @@ internal static class Program
     private const float PlayerScale = 1.5f;
     private const PlayerState PlayerSpawnState = PlayerState.Default;
     
+    /// <summary>
+    /// Initializes the game, runs the input and rendering loop, and releases resources on exit.
+    /// </summary>
     public static void Main()
     {
         AssetManager assetManager = new AssetManager();

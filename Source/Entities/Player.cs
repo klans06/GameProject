@@ -24,6 +24,11 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
     public Rectangle PlayerObject;
     private Vector2 PlayerPosition;
     
+    /// <summary>
+    /// Resolves a player state to its sprite atlas name or animation prefix.
+    /// </summary>
+    /// <param name="state">The idle or directional walking state to resolve.</param>
+    /// <returns>The idle sprite name or a walking prefix, defaulting to the downward walking prefix for unknown states.</returns>
     private string GetAnimationPrefix(PlayerState state)
     {
         return state switch
@@ -37,6 +42,9 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
         };
     }
 
+    /// <summary>
+    /// Processes WASD input, checks map collisions, and updates the position and animation state.
+    /// </summary>
     public void UpdatePosition()
     {
         bool isMoving = false;
@@ -106,6 +114,9 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
         }
     }
 
+    /// <summary>
+    /// Advances the animation frame and draws the current walking or idle sprite at the player position.
+    /// </summary>
     public void PaintPlayer()
     {
         string statePrefix = GetAnimationPrefix(State);
