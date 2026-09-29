@@ -14,9 +14,10 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
     private int Speed { get; set; } = speed;
     private float PlayerScale { get; set; } = playerScale;
 
-    private int _currentFrame;
+    private int _currentFrameIndex;
+    private int _framesSinceLastAnimationChange;
     private readonly int _animationCount = 5;
-    private const float FrameDuration = 0.135f;
+    private const int FramesBetweenAnimations = 2;
     
     private PlayerState State { get; set; } = state;
     private AssetManager AssetManager { get; } = assetManager;
@@ -121,17 +122,24 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
     {
         string statePrefix = GetAnimationPrefix(State);
         
-        _currentFrame++;
-        if (_currentFrame >= _animationCount)
-        {
-            _currentFrame = 0;
+        _framesSinceLastAnimationChange++;
+        if(_framesSinceLastAnimationChange >= FramesBetweenAnimations){
+            _framesSinceLastAnimationChange = 0;
+            _currentFrameIndex++;
+            if(_currentFrameIndex > _animationCount)
+            {
+                _currentFrameIndex = 0;
+            }
         }
         
         PlayerObject = State != PlayerState.Default
-            ? AssetManager.GetPlayerRec(statePrefix + _currentFrame)
+            ? AssetManager.GetPlayerRec(statePrefix + _currentFrameIndex)
             : AssetManager.GetPlayerRec(statePrefix);
+        Rectangle textureRec = new Rectangle(PlayerPosition, PlayerObject.Width * PlayerScale,
+            PlayerObject.Height * PlayerScale);
 
         PlayerPosition = Vector2.Create(PositionX, PositionY);
-        Raylib.DrawTextureRec(AssetManager.PlayerTexture, PlayerObject, PlayerPosition, Color.RayWhite);
+        Raylib.DrawTexturePro(AssetManager.PlayerTexture, PlayerObject, textureRec, Vector2.Zero, 0f, Color.RayWhite);
+        // Raylib.DrawTextureRec(AssetManager.PlayerTexture, PlayerObject, PlayerPosition, Color.RayWhite);
     }
 }

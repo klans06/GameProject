@@ -23,7 +23,7 @@ internal static class Program
     private const int PlayerSpawnPositionX = Rows / 2 * TileSize;
     private const int PlayerSpawnPositionY = Columns / 2 * TileSize;
     private const int PlayerSpawnSpeed = 2;
-    private const float PlayerScale = 1.5f;
+    private const float PlayerScale = 1.7f;
     private const PlayerState PlayerSpawnState = PlayerState.Default;
     
     /// <summary>
