@@ -10,15 +10,17 @@ public class Map
 {
     private Tile[,] _tiles;
     public int TileSize { get; }
+    public float TileScale { get; }
     public int Columns { get; }
     public int Rows { get; }
     private AssetManager AssetManager { get; }
 
-    public Map(int columns, int rows, AssetManager assetManager, int tileSize = 32)
+    public Map(int columns, int rows, AssetManager assetManager, int tileSize = 32, float tileScale = 2.0f)
     {
         Columns = columns;
         Rows = rows;
         TileSize = tileSize;
+        TileScale = tileScale;
         AssetManager = assetManager;
         _tiles = new Tile[rows, columns];
         
@@ -42,13 +44,12 @@ public class Map
             {
                 bool isBorder = (x == 0 || x == Rows - 1 || y == 0 || y == Columns - 1);
 
-                TileType type = isBorder ? TileType.StoneWallBorder : PickGroundTile();
+                var t = new Tile();
 
-                _tiles[x, y] = new Tile
-                {
-                    Type = type,
-                    ShouldCollide = isBorder
-                };
+                t.Type = isBorder ? TileType.StoneWallBorder : PickGroundTile();
+                t.ShouldCollide = isBorder;
+
+                _tiles[x, y] = t;
             }
         }
     }
@@ -74,7 +75,7 @@ public class Map
                 Vector2 tilePosition = new Vector2(pixelX, pixelY);
                 
                 Rectangle tileOutline = new Rectangle(pixelX, pixelY, TileSize, TileSize);
-                Raylib.DrawTextureEx(tileTexture, tilePosition, 360f, TileSize,Color.RayWhite);
+                Raylib.DrawTextureEx(tileTexture, tilePosition, 360f, TileScale,Color.RayWhite);
                 // Raylib.DrawRectangleLinesEx(tileOutline, 0.5f, Color.Black);
             }
         }

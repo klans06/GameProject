@@ -12,6 +12,7 @@ internal static class Program
     const int Columns = 100;
     const int Rows = 100;
     const int TileSize = 24;
+    const float TileScale = 2.0f;
     
     // Game
     private const string Title = "Overtile";
@@ -22,7 +23,7 @@ internal static class Program
     // Player
     private const int PlayerSpawnPositionX = Rows / 2 * TileSize;
     private const int PlayerSpawnPositionY = Columns / 2 * TileSize;
-    private const int PlayerSpawnSpeed = 2;
+    private const int PlayerSpawnSpeed = 1;
     private const float PlayerScale = 1.7f;
     private const PlayerState PlayerSpawnState = PlayerState.Default;
     
@@ -32,7 +33,7 @@ internal static class Program
     public static void Main()
     {
         AssetManager assetManager = new AssetManager();
-        Map gameMap = new Map(Columns, Rows, assetManager, TileSize);
+        Map gameMap = new Map(Columns, Rows, assetManager, TileSize, TileScale);
         Player player = new Player(
             PlayerSpawnPositionX,
             PlayerSpawnPositionY,

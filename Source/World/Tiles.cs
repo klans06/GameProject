@@ -11,7 +11,7 @@ public enum TileType
     StoneWallBorder
 }
 
-public struct Tile
+public class Tile
 {
     public TileType Type { get; set; }
     public bool ShouldCollide { get; set; }
