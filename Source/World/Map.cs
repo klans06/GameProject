@@ -8,7 +8,7 @@ namespace Overtile.Source.World;
 
 public class Map
 {
-    private readonly Tile[,] _tiles;
+    private Tile[,] _tiles;
     public int TileSize { get; }
     public int Columns { get; }
     public int Rows { get; }
@@ -27,15 +27,26 @@ public class Map
 
     private void InitializeMap()
     {
+        TileType PickGroundTile() =>
+            Random.Shared.Next(100) switch
+            {
+                < 50 => TileType.Grass,
+                < 65 => TileType.GrassWeed,
+                < 95 => TileType.GrassWFlowers,
+                _ => TileType.GrassWeed,
+            };
+        
         for (int x = 0; x < Rows; x++)
         {
             for (int y = 0; y < Columns; y++)
             {
                 bool isBorder = (x == 0 || x == Rows - 1 || y == 0 || y == Columns - 1);
 
+                TileType type = isBorder ? TileType.StoneWallBorder : PickGroundTile();
+
                 _tiles[x, y] = new Tile
                 {
-                    Type = isBorder ? TileType.StoneWallBorder : TileType.Grass,
+                    Type = type,
                     ShouldCollide = isBorder
                 };
             }
@@ -51,6 +62,8 @@ public class Map
                 Texture2D tileTexture = _tiles[x, y].Type switch
                 {
                     TileType.Grass => AssetManager.GetMapTexture(TileType.Grass),
+                    TileType.GrassWeed => AssetManager.GetMapTexture(TileType.GrassWeed),
+                    TileType.GrassWFlowers => AssetManager.GetMapTexture(TileType.GrassWFlowers),
                     TileType.StoneWallBorder => AssetManager.GetMapTexture(TileType.StoneWallBorder),
                     _ => AssetManager.GetMapTexture(TileType.StoneWallBorder) // Fallback color
                 };
@@ -62,7 +75,7 @@ public class Map
                 
                 Rectangle tileOutline = new Rectangle(pixelX, pixelY, TileSize, TileSize);
                 Raylib.DrawTextureEx(tileTexture, tilePosition, 360f, TileSize,Color.RayWhite);
-                Raylib.DrawRectangleLinesEx(tileOutline, 0.5f, Color.Black);
+                // Raylib.DrawRectangleLinesEx(tileOutline, 0.5f, Color.Black);
             }
         }
     }

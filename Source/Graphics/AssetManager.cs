@@ -8,7 +8,7 @@ namespace Overtile.Source.Graphics;
 
 public class AssetManager
 {
-    private readonly Dictionary<TileType, Texture2D> _tilesTextures = new();
+    private Dictionary<TileType, Texture2D> _tilesTextures = new();
     // private readonly Dictionary<PlayerState, Texture2D> _playerSkins = new();
     private readonly Dictionary<string, Rectangle> _playerStates = new();
     public Texture2D PlayerTexture;
