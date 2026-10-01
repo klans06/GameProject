@@ -23,7 +23,7 @@ public class Map
     /// <param name="assetManager">The asset manager that supplies map textures for rendering.</param>
     /// <param name="tileSize">The grid spacing in pixels used for placement and collision checks.</param>
     /// <param name="tileScale">The scale applied to tile textures when rendering.</param>
-    public Map(int columns, int rows, AssetManager assetManager, int tileSize = 32, float tileScale = 2.0f)
+    public Map(int columns, int rows, AssetManager assetManager, int tileSize = 32, float tileScale = 1.5f)
     {
         Columns = columns;
         Rows = rows;

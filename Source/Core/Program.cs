@@ -12,7 +12,7 @@ internal static class Program
     const int Columns = 100;
     const int Rows = 100;
     const int TileSize = 24;
-    const float TileScale = 2.0f;
+    const float TileScale = 1.5f;
     
     // Game
     private const string Title = "Overtile";
