@@ -33,7 +33,7 @@ internal static class Program
     public static void Main()
     {
         AssetManager assetManager = new AssetManager();
-        Map gameMap = new Map(Columns, Rows, assetManager, TileSize, TileScale);
+        Map gameMap = new Map(Columns, Rows, assetManager, 59837, TileSize, TileScale);
         Player player = new Player(
             PlayerSpawnPositionX,
             PlayerSpawnPositionY,
@@ -57,7 +57,7 @@ internal static class Program
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
                     Raylib.BeginMode2D(playerCamera.Camera);
-                        gameMap.DrawTile();
+                        gameMap.DrawBaseMapTiles();
                         player.PaintPlayer();
                         playerCamera.UpdatePosition();
                     Raylib.EndMode2D();
