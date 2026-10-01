@@ -15,6 +15,14 @@ public class Map
     public int Rows { get; }
     private AssetManager AssetManager { get; }
 
+    /// <summary>
+    /// Creates a map with randomized ground tiles and solid stone wall borders.
+    /// </summary>
+    /// <param name="columns">The number of columns in the tile grid.</param>
+    /// <param name="rows">The number of rows in the tile grid.</param>
+    /// <param name="assetManager">The asset manager that supplies map textures for rendering.</param>
+    /// <param name="tileSize">The grid spacing in pixels used for placement and collision checks.</param>
+    /// <param name="tileScale">The scale applied to tile textures when rendering.</param>
     public Map(int columns, int rows, AssetManager assetManager, int tileSize = 32, float tileScale = 2.0f)
     {
         Columns = columns;
@@ -27,6 +35,9 @@ public class Map
         InitializeMap();
     }
 
+    /// <summary>
+    /// Fills the grid with collidable stone wall borders and noncollidable, randomly selected ground tiles.
+    /// </summary>
     private void InitializeMap()
     {
         TileType PickGroundTile() =>
@@ -54,6 +65,9 @@ public class Map
         }
     }
  
+    /// <summary>
+    /// Draws each map tile at its grid position using the configured texture scale.
+    /// </summary>
     public void DrawTile()
     {
         for (int x = 0; x < Rows; x++)
