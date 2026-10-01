@@ -17,7 +17,7 @@ public class Player(int posX, int posY, int speed, float playerScale, PlayerStat
     private int _currentFrameIndex;
     private int _framesSinceLastAnimationChange;
     private readonly int _animationCount = 5;
-    private const int FramesBetweenAnimations = 2;
+    private const int FramesBetweenAnimations = 4;
     
     private PlayerState State { get; set; } = state;
     private AssetManager AssetManager { get; } = assetManager;

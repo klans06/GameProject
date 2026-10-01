@@ -5,13 +5,13 @@ namespace Overtile.Source.World;
 public enum TileType
 {
     Grass,
-    GrassWFlower,
-    GrassWFlowerPatch,
-    Dirt,
+    GrassWeed,
+    GrassWFlowers,
+    Shrub,
     StoneWallBorder
 }
 
-public struct Tile
+public class Tile
 {
     public TileType Type { get; set; }
     public bool ShouldCollide { get; set; }
