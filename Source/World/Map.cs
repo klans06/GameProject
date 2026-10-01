@@ -8,12 +8,13 @@ namespace Overtile.Source.World;
 
 public class Map
 {
-    private Tile[,] _tiles;
+    private readonly Tile[,] _tiles;
+    private AssetManager AssetManager { get; }
+    private float TileScale { get; }
+    private int? _seed;
     public int TileSize { get; }
-    public float TileScale { get; }
     public int Columns { get; }
     public int Rows { get; }
-    private AssetManager AssetManager { get; }
 
     /// <summary>
     /// Creates a map with randomized ground tiles and solid stone wall borders.
@@ -21,9 +22,10 @@ public class Map
     /// <param name="columns">The number of columns in the tile grid.</param>
     /// <param name="rows">The number of rows in the tile grid.</param>
     /// <param name="assetManager">The asset manager that supplies map textures for rendering.</param>
+    /// <param name="seed">The seed used to generate the tile texture placement.</param>
     /// <param name="tileSize">The grid spacing in pixels used for placement and collision checks.</param>
     /// <param name="tileScale">The scale applied to tile textures when rendering.</param>
-    public Map(int columns, int rows, AssetManager assetManager, int tileSize = 32, float tileScale = 1.5f)
+    public Map(int columns, int rows, AssetManager assetManager, int? seed, int tileSize = 32, float tileScale = 1.5f)
     {
         Columns = columns;
         Rows = rows;
@@ -31,7 +33,9 @@ public class Map
         TileScale = tileScale;
         AssetManager = assetManager;
         _tiles = new Tile[rows, columns];
+        _seed = seed ?? Random.Shared.Next(999999999);
         
+        Console.WriteLine($"Seed is {_seed}");
         InitializeMap();
     }
 
