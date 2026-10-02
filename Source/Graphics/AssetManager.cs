@@ -38,7 +38,7 @@ public class AssetManager
 
     }
     /// <summary>
-    /// Loads the grass and stone wall border textures used to render the map.
+    /// Loads the grass, stone wall border, and decorative prop textures used to render the map.
     /// </summary>
     public void LoadMapContent()
     {
@@ -46,8 +46,12 @@ public class AssetManager
         _tilesTextures[TileType.Grass] = Raylib.LoadTexture("./Assets/Map/tile_0000.png");
         _tilesTextures[TileType.GrassWeed] = Raylib.LoadTexture("./Assets/Map/tile_0001.png");
         _tilesTextures[TileType.GrassWFlowers] = Raylib.LoadTexture("./Assets/Map/tile_0002.png");
-        _tilesTextures[TileType.Shrub] = Raylib.LoadTexture("./Assets/Map/tile_0005.png");
         _tilesTextures[TileType.StoneWallBorder] = Raylib.LoadTexture("./Assets/Map/tile_0109.png");
+        
+        // Map Prop Tiles
+        _tilesTextures[TileType.PropShrub] = Raylib.LoadTexture("./Assets/Map/tile_0005.png");
+        _tilesTextures[TileType.PropLongGrass] = Raylib.LoadTexture("./Assets/Map/tile_0017.png");
+        _tilesTextures[TileType.PropMushrooms] = Raylib.LoadTexture("./Assets/Map/tile_0029.png");
         
         // Player State
         // _playerSkins[PlayerState.Default] = Raylib.LoadTexture("./Assets/character_maleAdventurer_side.png");
