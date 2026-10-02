@@ -1,5 +1,5 @@
 <div align="center">
- <h1>MonoGame</h1>
+ <h1>Overtile</h1>
 
 [![build](https://github.com/klans06/Overtile/actions/workflows/dotnet.yml/badge.svg)](https://github.com/klans06/Overtile/actions/workflows/dotnet.yml)
 
