@@ -47,23 +47,29 @@ internal static class Program
         
         Raylib.InitWindow(ScreenWidth, ScreenHeight, Title);
         Raylib.SetTargetFPS(TargetFps);
+        
         assetManager.LoadMiscContent();
         assetManager.LoadMapContent();
         assetManager.LoadPlayerContent();
         playerCamera.InitializePlayerCamera();
+        
         Cursor cursor = new Cursor(assetManager);
         
         while (!Raylib.WindowShouldClose())
         {
             player.UpdatePosition();
                 Raylib.BeginDrawing();
-                Raylib.ClearBackground(Color.White);
+                {
+                    Raylib.ClearBackground(Color.White);
                     Raylib.BeginMode2D(playerCamera.Camera);
+                    {
                         gameMap.DrawBaseMapTiles();
                         player.PaintPlayer();
                         playerCamera.UpdatePosition();
+                    }
                     Raylib.EndMode2D();
                     cursor.UpdateCursor();
+                }
                 Raylib.EndDrawing();
         }
         
