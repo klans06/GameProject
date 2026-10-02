@@ -191,6 +191,12 @@ public class Map
         }
     }
 
+    /// <summary>
+    /// Checks if the tile is solid and if the entity should collide with it.
+    /// </summary>
+    /// <param name="pixelX">The X pixel position of the tile to check.</param>
+    /// <param name="pixelY">The Y pixel position of the tile to check.</param>
+    /// <returns>Returns a bool based on whether the entity should collide with the tile.</returns>
     public bool IsTileSolid(int pixelX, int pixelY)
     {
         int gridX = pixelX / TileSize;

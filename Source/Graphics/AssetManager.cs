@@ -8,10 +8,8 @@ namespace Overtile.Source.Graphics;
 
 public class AssetManager
 {
-    private Dictionary<TileType, Texture2D> _tilesTextures = new();
-
-    private Dictionary<MiscTextureType, Texture2D> _miscTextures = new();
-    // private readonly Dictionary<PlayerState, Texture2D> _playerSkins = new();
+    private readonly Dictionary<TileType, Texture2D> _tilesTextures = new();
+    private readonly Dictionary<MiscTextureType, Texture2D> _miscTextures = new();
     private readonly Dictionary<string, Rectangle> _playerStates = new();
     public Texture2D PlayerTexture;
 
@@ -31,7 +29,7 @@ public class AssetManager
             float y = float.Parse(element.Attribute("y")?.Value ?? "0");
             float width = float.Parse(element.Attribute("width")?.Value ?? "64");
             float height = float.Parse(element.Attribute("height")?.Value ?? "64");
-            
+
             if (name != null)
             {
                 _playerStates[name] = new Rectangle(x, y, width, height);
@@ -39,6 +37,7 @@ public class AssetManager
         }
 
     }
+
     /// <summary>
     /// Loads the grass, stone wall border, and decorative prop textures used to render the map.
     /// </summary>
@@ -49,12 +48,12 @@ public class AssetManager
         _tilesTextures[TileType.GrassWeed] = Raylib.LoadTexture("./Assets/Map/tile_0001.png");
         _tilesTextures[TileType.GrassWFlowers] = Raylib.LoadTexture("./Assets/Map/tile_0002.png");
         _tilesTextures[TileType.StoneWallBorder] = Raylib.LoadTexture("./Assets/Map/tile_0109.png");
-        
+
         // Map Prop Tiles
         _tilesTextures[TileType.PropShrub] = Raylib.LoadTexture("./Assets/Map/tile_0005.png");
         _tilesTextures[TileType.PropLongGrass] = Raylib.LoadTexture("./Assets/Map/tile_0017.png");
         _tilesTextures[TileType.PropMushrooms] = Raylib.LoadTexture("./Assets/Map/tile_0029.png");
-        
+
         // Building Tiles
     }
 
@@ -106,23 +105,24 @@ public class AssetManager
     }
 
     /// <summary>
-    /// Unloads all map tile textures and clears their lookup table.
+    /// Unloads all textures from GPU and clears all asset manager caches for safe exit.
     /// </summary>
-    public void UnloadMapContent()
+    public void UnloadAllContent()
     {
         foreach (var texture in _tilesTextures.Values)
         {
             Raylib.UnloadTexture(texture);
         }
-        _tilesTextures.Clear();
-    }
 
-    /// <summary>
-    /// Unloads the player sprite sheet and clears the cached atlas frame rectangles.
-    /// </summary>
-    public void UnloadPlayerContent()
-    {
+        foreach (var texture in _miscTextures.Values)
+        {
+            Raylib.UnloadTexture(texture);
+        }
+
         Raylib.UnloadTexture(PlayerTexture);
+
+        _miscTextures.Clear();
         _playerStates.Clear();
+        _tilesTextures.Clear();
     }
 }

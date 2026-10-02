@@ -67,8 +67,7 @@ internal static class Program
                 Raylib.EndDrawing();
         }
         
-        assetManager.UnloadPlayerContent();
-        assetManager.UnloadMapContent();
+        assetManager.UnloadAllContent();
         Raylib.CloseWindow();
     }
 }
