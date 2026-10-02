@@ -18,6 +18,7 @@ public class Tile
 {
     public TileType Type { get; set; }
     public TileType Prop { get; set; }
+    public bool isMapBorder { get; set; }
     public bool ShouldCollide { get; set; }
     public float Noise { get; set; }
     // Item, loot support later

@@ -141,8 +141,15 @@ public class Map
                 
                 float noise = Noise.GetNoise(x, y);
 
-                t.Type = isBorder ? TileType.StoneWallBorder : GetTileThreshold(noise);
-                t.Prop = TileType.None;
+                if (isBorder)
+                {
+                    t.Type = TileType.StoneWallBorder;
+                    t.isMapBorder = true;
+                } else
+                {
+                    t.Type = GetTileThreshold(noise);
+                }
+                
                 t.ShouldCollide = isBorder;
                 t.Noise = noise;
 
@@ -175,7 +182,7 @@ public class Map
                 // Rectangle tileOutline = new Rectangle(pixelX, pixelY, TileSize, TileSize);
                 Raylib.DrawTextureEx(tileTexture, tilePosition, 360f, TileScale,Color.RayWhite);
 
-                if (_tiles[x, y].Prop != TileType.None)
+                if (_tiles[x, y].Prop != TileType.None && !_tiles[x, y].isMapBorder)
                 {
                     Texture2D propTexture = GetTileTexture(_tiles[x, y].Prop);
                     Raylib.DrawTextureEx(propTexture, tilePosition, 360f, TileScale, Color.RayWhite);
