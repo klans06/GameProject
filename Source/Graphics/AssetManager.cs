@@ -9,6 +9,8 @@ namespace Overtile.Source.Graphics;
 public class AssetManager
 {
     private Dictionary<TileType, Texture2D> _tilesTextures = new();
+
+    private Dictionary<MiscTextureType, Texture2D> _miscTextures = new();
     // private readonly Dictionary<PlayerState, Texture2D> _playerSkins = new();
     private readonly Dictionary<string, Rectangle> _playerStates = new();
     public Texture2D PlayerTexture;
@@ -54,6 +56,21 @@ public class AssetManager
         _tilesTextures[TileType.PropMushrooms] = Raylib.LoadTexture("./Assets/Map/tile_0029.png");
         
         // Building Tiles
+    }
+
+    public void LoadMiscContent()
+    {
+        _miscTextures[MiscTextureType.Cursor] = Raylib.LoadTexture("./Assets/Misc/cursor_none.png");
+    }
+
+    public Texture2D GetMiscTexture(MiscTextureType type)
+    {
+        if (_miscTextures.TryGetValue(type, out Texture2D texture))
+        {
+            return texture;
+        }
+
+        throw new KeyNotFoundException($"No texture for {type}");
     }
 
     /// <summary>

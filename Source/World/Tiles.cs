@@ -23,3 +23,8 @@ public class Tile
     public float Noise { get; set; }
     // Item, loot support later
 }
+
+public enum MiscTextureType
+{
+    Cursor
+}

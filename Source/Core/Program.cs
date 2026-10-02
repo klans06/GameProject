@@ -33,7 +33,7 @@ internal static class Program
     public static void Main()
     {
         AssetManager assetManager = new AssetManager();
-        Map gameMap = new Map(Columns, Rows, assetManager, 59837, TileSize, TileScale);
+        Map gameMap = new Map(Columns, Rows, assetManager, null, TileSize, TileScale);
         Player player = new Player(
             PlayerSpawnPositionX,
             PlayerSpawnPositionY,
@@ -47,10 +47,12 @@ internal static class Program
         
         Raylib.InitWindow(ScreenWidth, ScreenHeight, Title);
         Raylib.SetTargetFPS(TargetFps);
+        assetManager.LoadMiscContent();
         assetManager.LoadMapContent();
         assetManager.LoadPlayerContent();
         playerCamera.InitializePlayerCamera();
-
+        Cursor cursor = new Cursor(assetManager);
+        
         while (!Raylib.WindowShouldClose())
         {
             player.UpdatePosition();
@@ -61,6 +63,7 @@ internal static class Program
                         player.PaintPlayer();
                         playerCamera.UpdatePosition();
                     Raylib.EndMode2D();
+                    cursor.UpdateCursor();
                 Raylib.EndDrawing();
         }
         
