@@ -53,9 +53,6 @@ public class AssetManager
         _tilesTextures[TileType.PropLongGrass] = Raylib.LoadTexture("./Assets/Map/tile_0017.png");
         _tilesTextures[TileType.PropMushrooms] = Raylib.LoadTexture("./Assets/Map/tile_0029.png");
         
-        // Player State
-        // _playerSkins[PlayerState.Default] = Raylib.LoadTexture("./Assets/character_maleAdventurer_side.png");
-        
         // Building Tiles
     }
 
