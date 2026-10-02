@@ -19,7 +19,7 @@ public class Map
     public int Rows { get; }
 
     /// <summary>
-    /// Creates a map with randomized ground tiles and solid stone wall borders.
+    /// Creates a map with noise-based ground tiles and solid stone wall borders.
     /// </summary>
     /// <param name="columns">The number of columns in the tile grid.</param>
     /// <param name="rows">The number of rows in the tile grid.</param>
@@ -40,6 +40,10 @@ public class Map
         InitializeMap();
     }
     
+    /// <summary>
+    /// Replaces the map's noise generator using the supplied seed or a randomly selected seed.
+    /// </summary>
+    /// <param name="seed">The seed to use, or null to choose a value from 0 through 99998.</param>
     private void InitializeNoise(int? seed)
     {
         int? mapSeed = seed ?? Random.Shared.Next(99999);
@@ -49,6 +53,13 @@ public class Map
         Console.WriteLine($"Seed is {mapSeed}");
     }
 
+    /// <summary>
+    /// Selects a ground tile from a noise sample and sets the frequency for subsequent noise samples to 0.25.
+    /// </summary>
+    /// <returns>
+    /// GrassWeed for samples from 0.01 through 0.5, GrassWFlowers from 0.51 through 1,
+    /// and Grass otherwise. Both ranges include their endpoints.
+    /// </returns>
     private TileType GetTileThreshold(float noise)
     {
         Noise.SetFrequency(0.25f);
@@ -67,6 +78,13 @@ public class Map
         }
     }
 
+    /// <summary>
+    /// Selects a decorative prop from a noise sample and sets the frequency for subsequent noise samples to 2.
+    /// </summary>
+    /// <returns>
+    /// PropShrub for samples from 0.1 through 0.16, PropLongGrass from 0.171 through 0.182,
+    /// PropMushrooms from 0.191 through 0.195, and None otherwise. All ranges include their endpoints.
+    /// </returns>
     private TileType GetPropThreshold(float noise)
     {
         Noise.SetFrequency(2f);
@@ -85,6 +103,11 @@ public class Map
         }
     }
 
+    /// <summary>
+    /// Retrieves the loaded texture for a ground tile, border, or decorative prop.
+    /// </summary>
+    /// <returns>The matching texture, or the stone wall border texture for None or an unrecognized tile type.</returns>
+    /// <exception cref="KeyNotFoundException">The selected texture, including any fallback texture, has not been loaded.</exception>
     private Texture2D GetTileTexture(TileType tile)
     {
         Texture2D tileTexture = tile switch
@@ -103,7 +126,8 @@ public class Map
     }
 
     /// <summary>
-    /// Fills the grid with collidable stone wall borders and non-collidable, randomly selected ground tiles.
+    /// Fills the grid with collidable stone wall borders and non-collidable, noise-based ground tiles,
+    /// storing each tile's noise sample and clearing its decorative prop.
     /// </summary>
     private void InitializeMap()
     {
@@ -127,6 +151,14 @@ public class Map
         }
     }
 
+    /// <summary>
+    /// Draws each map tile at its grid position using the configured texture scale, then draws its decorative prop.
+    /// </summary>
+    /// <remarks>
+    /// Recomputes and stores props on each call, including on border tiles, without changing collision flags.
+    /// Prop selection sets the noise frequency to 2 for subsequent samples.
+    /// </remarks>
+    /// <exception cref="KeyNotFoundException">A required base tile or prop texture has not been loaded.</exception>
     public void DrawBaseMapTiles()
     {
         for (int x = 0; x < Rows; x++)

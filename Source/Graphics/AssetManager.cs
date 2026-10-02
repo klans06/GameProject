@@ -38,7 +38,7 @@ public class AssetManager
 
     }
     /// <summary>
-    /// Loads the grass and stone wall border textures used to render the map.
+    /// Loads the grass, stone wall border, and decorative prop textures used to render the map.
     /// </summary>
     public void LoadMapContent()
     {
